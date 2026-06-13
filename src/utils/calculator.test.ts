@@ -89,6 +89,15 @@ describe('calculateTransportEmissions', () => {
     ];
     expect(calculateTransportEmissions(entries)).toBeGreaterThan(0);
   });
+
+  it('handles extremely large numbers without NaN', () => {
+    const entries: TransportEntry[] = [
+      { id: '1', mode: TransportMode.PlaneLongHaul, distanceKm: Number.MAX_SAFE_INTEGER, frequencyPerWeek: 7 },
+    ];
+    const result = calculateTransportEmissions(entries);
+    expect(result).toBeGreaterThan(0);
+    expect(Number.isNaN(result)).toBe(false);
+  });
 });
 
 /* ============================================================
@@ -237,6 +246,14 @@ describe('calculateTotalEmissions', () => {
 
   it('clamps negative values to 0', () => {
     expect(calculateTotalEmissions(-100, 200, 300)).toBe(500);
+  });
+
+  it('handles Infinity correctly by falling back to 0', () => {
+    expect(calculateTotalEmissions(Infinity, 0, 0)).toBe(0);
+  });
+
+  it('handles -Infinity correctly', () => {
+    expect(calculateTotalEmissions(-Infinity, 0, 0)).toBe(0);
   });
 });
 

@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+.git
+.env*
+*.log
+coverage
+.vscode
+.idea
+.gemini

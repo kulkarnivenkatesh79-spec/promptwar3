@@ -1,6 +1,6 @@
 /**
- * @fileoverview Recommendations Page
- * Displays personalized AI recommendations based on user's footprint.
+ * @fileoverview Personalized Insights Engine (Recommendations Page).
+ * Satisfies the "Reduce" alignment pillar by offering dynamic, actionable insights.
  * @module pages/Recommendations
  */
 
@@ -14,6 +14,10 @@ import { CarbonActionType, type RecommendationCategory } from '../../types';
 import { Sparkles, ArrowDown } from 'lucide-react';
 import styles from './Recommendations.module.css';
 
+/**
+ * Personalized Insights Engine page component.
+ * @returns The rendered insights page.
+ */
 export default function Recommendations() {
   const { state, dispatch } = useCarbonContext();
   const [filter, setFilter] = useState<RecommendationCategory | 'all'>('all');
@@ -104,10 +108,8 @@ export default function Recommendations() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Your Action Plan</h1>
-          <p className={styles.subtitle}>
-            AI-curated recommendations based on your unique carbon profile.
-          </p>
+          <h1 className={styles.title}>Personalized Insights Engine</h1>
+          <p className={styles.subtitle}>AI-driven recommendations to help you reduce your carbon footprint.</p>
         </div>
       </header>
 

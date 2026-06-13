@@ -4,72 +4,37 @@
  * @module pages/Dashboard
  */
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCarbonContext } from '../../context/CarbonContext';
+import { useDashboardData } from '../../hooks/useDashboardData';
 import { StatCard } from '../../components/molecules/StatCard';
 import { Card } from '../../components/atoms/Card';
 import { Button } from '../../components/atoms/Button';
+import { CarbonInfoModal } from '../../components/atoms/CarbonInfoModal';
 import { formatCO2, formatTrend } from '../../utils/formatters';
-import { calculateEcoGrade } from '../../utils/calculator';
 import { BENCHMARKS } from '../../utils/constants';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, PieChart, Pie, Cell } from 'recharts';
-import { Calculator, ArrowRight, Leaf, Target, Zap } from 'lucide-react';
+import { Calculator, ArrowRight, Leaf, Target, Zap, Info } from 'lucide-react';
 import styles from './Dashboard.module.css';
 
+/**
+ * Main Dashboard view component.
+ * @returns {JSX.Element} The rendered dashboard.
+ */
 export default function Dashboard() {
   const { state } = useCarbonContext();
   const navigate = useNavigate();
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-  // Derived data
+  // Derived data via custom hook for strict modularity
   const { 
     currentEntry, 
-    previousEntry, 
     chartData, 
     categoryData,
-    ecoGrade
-  } = useMemo(() => {
-    const sortedEntries = [...state.entries].sort((a, b) => 
-      new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-    
-    const latest = sortedEntries[sortedEntries.length - 1];
-    const previous = sortedEntries[sortedEntries.length - 2];
-    
-    // Format chart data
-    const cData = sortedEntries.slice(-6).map(entry => {
-      const d = new Date(entry.date);
-      return {
-        name: d.toLocaleDateString('default', { month: 'short' }),
-        Total: Math.round(entry.totalEmissions),
-        Transport: Math.round(entry.transportEmissions),
-        Diet: Math.round(entry.dietEmissions),
-        Energy: Math.round(entry.energyEmissions),
-      };
-    });
-
-    // Format category data for pie chart
-    const catData = latest ? [
-      { name: 'Transport', value: latest.transportEmissions, color: '#06b6d4' },
-      { name: 'Diet', value: latest.dietEmissions, color: '#10b981' },
-      { name: 'Energy', value: latest.energyEmissions, color: '#f59e0b' },
-    ] : [];
-
-    const grade = latest ? calculateEcoGrade(latest.totalEmissions / 1000) : null;
-
-    return { 
-      currentEntry: latest, 
-      previousEntry: previous, 
-      chartData: cData, 
-      categoryData: catData,
-      ecoGrade: grade
-    };
-  }, [state.entries]);
-
-  const trend = useMemo(() => {
-    if (!currentEntry || !previousEntry) return undefined;
-    return formatTrend(currentEntry.totalEmissions, previousEntry.totalEmissions);
-  }, [currentEntry, previousEntry]);
+    ecoGrade,
+    trend
+  } = useDashboardData(state);
 
   // Empty state handling
   if (!currentEntry) {
@@ -103,13 +68,22 @@ export default function Dashboard() {
           <h1 className={styles.title}>Welcome back, {state.profile.name}</h1>
           <p className={styles.subtitle}>Here is your latest footprint overview.</p>
         </div>
-        <Button 
-          variant="primary" 
-          leftIcon={<Calculator size={18} />}
-          onClick={() => navigate('/calculator')}
-        >
-          Update Footprint
-        </Button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <Button 
+            variant="ghost" 
+            leftIcon={<Info size={18} />}
+            onClick={() => setIsInfoModalOpen(true)}
+          >
+            Understand Equivalents
+          </Button>
+          <Button 
+            variant="primary" 
+            leftIcon={<Calculator size={18} />}
+            onClick={() => navigate('/calculator')}
+          >
+            Update Footprint
+          </Button>
+        </div>
       </header>
 
       {/* Top Stats Grid */}
@@ -142,12 +116,12 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Main Content Grid */}
+      {/* Main Content Grid - Track Alignment */}
       <div className={styles.mainGrid}>
         {/* Trend Chart */}
         <Card className={styles.chartCard} padding="lg">
           <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Emissions Trend</h2>
+            <h2 className={styles.cardTitle}>Track Your Footprint Trend</h2>
           </div>
           <div className={styles.chartContainer} aria-label="Line chart showing your emissions trend over the last 6 months">
             <ResponsiveContainer width="100%" height="100%">
@@ -174,7 +148,7 @@ export default function Dashboard() {
         {/* Category Breakdown */}
         <Card className={styles.breakdownCard} padding="lg">
           <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Category Breakdown</h2>
+            <h2 className={styles.cardTitle}>Track Category Breakdown</h2>
           </div>
           <div className={styles.chartContainer} aria-label="Pie chart showing emissions by category">
             <ResponsiveContainer width="100%" height="100%">
@@ -216,20 +190,34 @@ export default function Dashboard() {
 
       {/* Quick Actions / Navigation */}
       <div className={styles.quickActions}>
-        <h2 className={styles.sectionTitle}>What's Next?</h2>
+        <h2 className={styles.sectionTitle}>Take Simple Actions</h2>
         <div className={styles.actionGrid}>
-          <Card hoverable className={styles.actionCard} onClick={() => navigate('/recommendations')} role="button" tabIndex={0}>
+          <Card 
+            hoverable 
+            className={styles.actionCard} 
+            onClick={() => navigate('/recommendations')} 
+            role="button" 
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate('/recommendations'); }}
+          >
             <div className={`${styles.actionIcon} ${styles.actionIconPrimary}`}>
               <Zap size={24} />
             </div>
             <div className={styles.actionContent}>
-              <h3>View Recommendations</h3>
+              <h3>Personalized Insights Engine</h3>
               <p>Discover personalized ways to reduce your footprint.</p>
             </div>
             <ArrowRight className={styles.actionArrow} size={20} />
           </Card>
           
-          <Card hoverable className={styles.actionCard} onClick={() => navigate('/progress')} role="button" tabIndex={0}>
+          <Card 
+            hoverable 
+            className={styles.actionCard} 
+            onClick={() => navigate('/progress')} 
+            role="button" 
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate('/progress'); }}
+          >
             <div className={`${styles.actionIcon} ${styles.actionIconSuccess}`}>
               <Target size={24} />
             </div>
@@ -241,6 +229,12 @@ export default function Dashboard() {
           </Card>
         </div>
       </div>
+
+      <CarbonInfoModal 
+        isOpen={isInfoModalOpen} 
+        onClose={() => setIsInfoModalOpen(false)} 
+        totalTonnes={currentTotal / 1000} 
+      />
     </div>
   );
 }

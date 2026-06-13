@@ -282,7 +282,7 @@ export default function CalculatorForm() {
         )}
 
         {/* Live Preview Bar */}
-        <div className={styles.livePreview} aria-live="polite">
+        <div className={styles.livePreview} aria-live="assertive" aria-atomic="true">
           <span className={styles.previewLabel}>Estimated Footprint:</span>
           <span className={styles.previewValue}>{(liveTotal / 1000).toFixed(2)} tonnes/yr</span>
         </div>
