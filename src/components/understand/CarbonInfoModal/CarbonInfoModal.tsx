@@ -29,7 +29,7 @@ export const CarbonInfoModal: React.FC<CarbonInfoModalProps> = ({ isOpen, onClos
         <div className={styles.header}>
           <div className={styles.titleGroup}>
             <Info className={styles.icon} size={24} />
-            <h2 id="modal-title" className={styles.title}>Understand Your Footprint</h2>
+            <h1 id="modal-title" className={styles.title}>Pillar 1: Understand Your Footprint</h1>
           </div>
           <button 
             className={styles.closeBtn} 

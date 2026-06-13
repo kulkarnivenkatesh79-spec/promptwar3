@@ -78,7 +78,7 @@ describe('Dashboard Component', () => {
 
     // Modal should open
     expect(screen.getByRole('dialog')).toBeDefined();
-    expect(screen.getByText('Understand Your Footprint')).toBeDefined();
+    expect(screen.getByText('Pillar 1: Understand Your Footprint')).toBeDefined();
 
     // Close modal
     const closeBtn = screen.getByLabelText('Close understand modal');
@@ -97,6 +97,7 @@ describe('Dashboard Component', () => {
       </BrowserRouter>
     );
 
+    expect(screen.getByText('Pillar 2: Track Daily Metrics')).toBeDefined();
     expect(screen.getByText('Track Your Footprint Trend')).toBeDefined();
     expect(screen.getByText('Track Category Breakdown')).toBeDefined();
   });

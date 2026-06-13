@@ -18,6 +18,8 @@ export interface ActionCardProps {
   readonly onComplete?: (id: string) => void;
   /** Callback when user clicks to learn more or add as goal */
   readonly onAction?: (id: string) => void;
+  /** Whether this action maps to the user's highest emitting category */
+  readonly isHighImpact?: boolean;
 }
 
 /**
@@ -27,6 +29,7 @@ const ActionCard = memo(function ActionCard({
   recommendation,
   onComplete,
   onAction,
+  isHighImpact,
 }: ActionCardProps) {
   // @ts-expect-error - Dynamic icon mapping
   const Icon = recommendation.icon ? Icons[recommendation.icon] : Icons.Lightbulb;
@@ -62,6 +65,11 @@ const ActionCard = memo(function ActionCard({
               <Badge variant="neutral">
                 {recommendation.difficulty.charAt(0).toUpperCase() + recommendation.difficulty.slice(1)}
               </Badge>
+              {isHighImpact && (
+                <Badge variant="danger" icon={<Icons.Zap size={12} />}>
+                  High Impact Action
+                </Badge>
+              )}
               {isCompleted && (
                 <Badge variant="success" icon={<Icons.Check size={12} />}>
                   Done

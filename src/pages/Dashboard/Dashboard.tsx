@@ -8,10 +8,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { useDashboardData } from '../../hooks/useDashboardData';
-import { StatCard } from '../../components/molecules/StatCard';
+import { StatCard } from '../../components/track/StatCard';
 import { Card } from '../../components/atoms/Card';
 import { Button } from '../../components/atoms/Button';
-import { CarbonInfoModal } from '../../components/atoms/CarbonInfoModal';
+import { CarbonInfoModal } from '../../components/understand/CarbonInfoModal';
 import { formatCO2, formatTrend } from '../../utils/formatters';
 import { BENCHMARKS } from '../../utils/constants';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, PieChart, Pie, Cell } from 'recharts';
@@ -87,6 +87,7 @@ export default function Dashboard() {
       </header>
 
       {/* Top Stats Grid */}
+      <h2 className={styles.sectionTitle} style={{ padding: '0 2rem', marginTop: '1rem' }}>Pillar 2: Track Daily Metrics</h2>
       <div className={styles.statsGrid}>
         <StatCard
           title="Total Footprint"

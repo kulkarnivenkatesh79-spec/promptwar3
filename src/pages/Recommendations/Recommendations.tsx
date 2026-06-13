@@ -6,9 +6,9 @@
 
 import { useState, useMemo } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
-import { RecommendationList } from '../../components/organisms/RecommendationList';
+import { RecommendationList } from '../../components/reduce/RecommendationList';
 import { Card } from '../../components/atoms/Card';
-import { generateRecommendations } from '../../utils/recommendations';
+import { generateRecommendations, getTopCategory } from '../../utils/recommendations';
 import { formatCO2, formatPercentage } from '../../utils/formatters';
 import { CarbonActionType, type RecommendationCategory } from '../../types';
 import { Sparkles, ArrowDown } from 'lucide-react';
@@ -108,7 +108,7 @@ export default function Recommendations() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Personalized Insights Engine</h1>
+          <h1 className={styles.title}>Pillar 3: Reduce Emissions via Personalized Insights</h1>
           <p className={styles.subtitle}>AI-driven recommendations to help you reduce your carbon footprint.</p>
         </div>
       </header>
@@ -142,6 +142,7 @@ export default function Recommendations() {
       {/* Recommendation List */}
       <RecommendationList 
         recommendations={recommendations}
+        highestCategory={getTopCategory(currentEntry)}
         filter={filter}
         onFilterChange={setFilter}
         onComplete={handleComplete}

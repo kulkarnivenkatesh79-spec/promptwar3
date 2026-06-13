@@ -4,7 +4,7 @@
  */
 
 import { memo } from 'react';
-import { ActionCard } from '../../molecules/ActionCard';
+import { ActionCard } from '../ActionCard';
 import { Card } from '../../atoms/Card';
 import { Button } from '../../atoms/Button';
 import { Lightbulb, Filter } from 'lucide-react';
@@ -22,6 +22,8 @@ export interface RecommendationListProps {
   readonly filter?: RecommendationCategory | 'all';
   /** Callback to change filter */
   readonly onFilterChange?: (filter: RecommendationCategory | 'all') => void;
+  /** The user's highest emitting category */
+  readonly highestCategory?: RecommendationCategory | 'none';
 }
 
 /**
@@ -33,6 +35,7 @@ const RecommendationList = memo(function RecommendationList({
   onAction,
   filter = 'all',
   onFilterChange,
+  highestCategory = 'none',
 }: RecommendationListProps) {
   
   // Apply filtering
@@ -100,6 +103,7 @@ const RecommendationList = memo(function RecommendationList({
                 recommendation={rec}
                 onComplete={onComplete}
                 onAction={onAction}
+                isHighImpact={rec.category === highestCategory}
               />
             </div>
           ))}
@@ -117,6 +121,7 @@ const RecommendationList = memo(function RecommendationList({
                   recommendation={rec}
                   onComplete={onComplete}
                   onAction={onAction}
+                  isHighImpact={rec.category === highestCategory}
                 />
               </div>
             ))}
