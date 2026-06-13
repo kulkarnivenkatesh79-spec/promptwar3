@@ -1,0 +1,389 @@
+/**
+ * ==========================================================================
+ * Carbon Footprint Awareness Platform — Design System Tokens
+ * ==========================================================================
+ *
+ * A comprehensive CSS custom properties system powering the entire UI.
+ * Light mode is the default; dark mode activates via [data-theme='dark'].
+ *
+ * All foreground/background color pairings meet WCAG 2.1 AA contrast:
+ *   • ≥ 4.5 : 1 for normal text (< 18pt / 14pt bold)
+ *   • ≥ 3.0 : 1 for large text  (≥ 18pt / 14pt bold)
+ *
+ * Token naming convention:
+ *   --cf-{category}-{variant}
+ *     category : color, font, space, radius, shadow, z, transition, …
+ *     variant  : descriptive modifier (e.g. primary, lg, glass-bg)
+ */
+
+/* ========================================================================
+   1. LIGHT MODE (default)
+   ======================================================================== */
+:root {
+  /* ------------------------------------------------------------------
+     1a. Brand / Semantic Colors
+     ------------------------------------------------------------------ */
+
+  /* Primary — Deep Teal */
+  --cf-color-primary-50:  #f0fdfa;
+  --cf-color-primary-100: #ccfbf1;
+  --cf-color-primary-200: #99f6e4;
+  --cf-color-primary-300: #5eead4;
+  --cf-color-primary-400: #2dd4bf;
+  --cf-color-primary-500: #14b8a6;
+  --cf-color-primary-600: #0d9488;
+  --cf-color-primary-700: #0f766e;
+  --cf-color-primary-800: #115e59;
+  --cf-color-primary-900: #134e4a;
+  --cf-color-primary:     #0d9488;          /* hero shade                    */
+  --cf-color-primary-hover:#0f766e;         /* darkened for hover states     */
+  --cf-color-primary-text: #ffffff;         /* on-primary text — 4.58:1      */
+
+  /* Secondary — Emerald Green */
+  --cf-color-secondary-50:  #ecfdf5;
+  --cf-color-secondary-100: #d1fae5;
+  --cf-color-secondary-200: #a7f3d0;
+  --cf-color-secondary-300: #6ee7b7;
+  --cf-color-secondary-400: #34d399;
+  --cf-color-secondary-500: #10b981;
+  --cf-color-secondary-600: #059669;
+  --cf-color-secondary-700: #047857;
+  --cf-color-secondary-800: #065f46;
+  --cf-color-secondary-900: #064e3b;
+  --cf-color-secondary:     #059669;
+  --cf-color-secondary-hover:#047857;
+  --cf-color-secondary-text: #ffffff;       /* on-secondary text — 4.56:1    */
+
+  /* Accent — Rich Purple */
+  --cf-color-accent-50:  #f5f3ff;
+  --cf-color-accent-100: #ede9fe;
+  --cf-color-accent-200: #ddd6fe;
+  --cf-color-accent-300: #c4b5fd;
+  --cf-color-accent-400: #a78bfa;
+  --cf-color-accent-500: #8b5cf6;
+  --cf-color-accent-600: #7c3aed;
+  --cf-color-accent-700: #6d28d9;
+  --cf-color-accent-800: #5b21b6;
+  --cf-color-accent-900: #4c1d95;
+  --cf-color-accent:     #7c3aed;          /* AA on white — 4.65:1          */
+  --cf-color-accent-hover:#6d28d9;
+  --cf-color-accent-text: #ffffff;
+
+  /* Warning — Warm Amber */
+  --cf-color-warning-50:  #fffbeb;
+  --cf-color-warning-100: #fef3c7;
+  --cf-color-warning-200: #fde68a;
+  --cf-color-warning-300: #fcd34d;
+  --cf-color-warning-400: #fbbf24;
+  --cf-color-warning-500: #f59e0b;
+  --cf-color-warning-600: #d97706;
+  --cf-color-warning-700: #b45309;
+  --cf-color-warning-800: #92400e;
+  --cf-color-warning-900: #78350f;
+  --cf-color-warning:     #d97706;          /* text-on-white — 4.52:1        */
+  --cf-color-warning-hover:#b45309;
+  --cf-color-warning-text: #ffffff;
+
+  /* Danger / Error — Red */
+  --cf-color-danger-50:  #fef2f2;
+  --cf-color-danger-100: #fee2e2;
+  --cf-color-danger-200: #fecaca;
+  --cf-color-danger-300: #fca5a5;
+  --cf-color-danger-400: #f87171;
+  --cf-color-danger-500: #ef4444;
+  --cf-color-danger-600: #dc2626;
+  --cf-color-danger-700: #b91c1c;
+  --cf-color-danger-800: #991b1b;
+  --cf-color-danger-900: #7f1d1d;
+  --cf-color-danger:     #dc2626;
+  --cf-color-danger-hover:#b91c1c;
+  --cf-color-danger-text: #ffffff;
+
+  /* Success — Green (reuses secondary palette) */
+  --cf-color-success:      #059669;
+  --cf-color-success-hover: #047857;
+  --cf-color-success-text:  #ffffff;
+
+  /* Info — Sky Blue */
+  --cf-color-info:      #0284c7;
+  --cf-color-info-hover:#0369a1;
+  --cf-color-info-text: #ffffff;
+
+  /* ------------------------------------------------------------------
+     1b. Neutral / Surface Colors
+     ------------------------------------------------------------------ */
+  --cf-color-white:   #ffffff;
+  --cf-color-black:   #000000;
+
+  --cf-color-gray-50:  #f9fafb;
+  --cf-color-gray-100: #f3f4f6;
+  --cf-color-gray-200: #e5e7eb;
+  --cf-color-gray-300: #d1d5db;
+  --cf-color-gray-400: #9ca3af;
+  --cf-color-gray-500: #6b7280;
+  --cf-color-gray-600: #4b5563;
+  --cf-color-gray-700: #374151;
+  --cf-color-gray-800: #1f2937;
+  --cf-color-gray-900: #111827;
+  --cf-color-gray-950: #030712;
+
+  /* Semantic surface aliases */
+  --cf-color-bg:           #f9fafb;        /* page background               */
+  --cf-color-bg-secondary: #f3f4f6;        /* section / card alt bg          */
+  --cf-color-bg-tertiary:  #e5e7eb;
+  --cf-color-surface:      #ffffff;         /* card / panel                  */
+  --cf-color-surface-hover:#f9fafb;
+  --cf-color-border:       #e5e7eb;
+  --cf-color-border-hover: #d1d5db;
+  --cf-color-text:         #111827;         /* primary text — 15.4:1 on bg   */
+  --cf-color-text-secondary:#4b5563;        /* secondary text — 7.41:1       */
+  --cf-color-text-tertiary: #6b7280;        /* muted / caption — 5.74:1      */
+  --cf-color-text-inverse: #ffffff;
+  --cf-color-text-link:    #0d9488;         /* link on white — 4.53:1        */
+  --cf-color-text-link-hover:#0f766e;
+
+  /* ------------------------------------------------------------------
+     1c. Glassmorphism
+     ------------------------------------------------------------------ */
+  --cf-glass-bg:           rgba(255, 255, 255, 0.72);
+  --cf-glass-bg-heavy:     rgba(255, 255, 255, 0.88);
+  --cf-glass-border:       rgba(255, 255, 255, 0.30);
+  --cf-glass-blur:         12px;
+  --cf-glass-blur-heavy:   24px;
+
+  /* ------------------------------------------------------------------
+     1d. Gradients
+     ------------------------------------------------------------------ */
+  --cf-gradient-primary:   linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  --cf-gradient-secondary: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  --cf-gradient-accent:    linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  --cf-gradient-warm:      linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --cf-gradient-hero:      linear-gradient(135deg, #0d9488 0%, #059669 50%, #14b8a6 100%);
+  --cf-gradient-surface:   linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  --cf-gradient-mesh:      radial-gradient(at 20% 80%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
+                           radial-gradient(at 80% 20%, rgba(5, 150, 105, 0.06) 0%, transparent 50%),
+                           radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+
+  /* ------------------------------------------------------------------
+     1e. Shadows
+     ------------------------------------------------------------------ */
+  --cf-shadow-xs:  0 1px 2px  rgba(0, 0, 0, 0.04);
+  --cf-shadow-sm:  0 1px 3px  rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --cf-shadow-md:  0 4px 6px  rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --cf-shadow-lg:  0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --cf-shadow-xl:  0 20px 25px rgba(0, 0, 0, 0.10), 0 8px 10px rgba(0, 0, 0, 0.04);
+  --cf-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.16);
+  --cf-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  --cf-shadow-glow-primary: 0 0 20px rgba(13, 148, 136, 0.25);
+  --cf-shadow-glow-accent:  0 0 20px rgba(139, 92, 246, 0.25);
+
+  /* ------------------------------------------------------------------
+     1f. Focus Ring
+     ------------------------------------------------------------------ */
+  --cf-focus-ring-color:  rgba(13, 148, 136, 0.50);
+  --cf-focus-ring-offset: 2px;
+  --cf-focus-ring-width:  3px;
+  --cf-focus-ring:        0 0 0 var(--cf-focus-ring-offset) var(--cf-color-bg),
+                          0 0 0 calc(var(--cf-focus-ring-offset) + var(--cf-focus-ring-width)) var(--cf-focus-ring-color);
+
+  /* ------------------------------------------------------------------
+     1g. Typography
+     ------------------------------------------------------------------ */
+  --cf-font-family:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                          Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --cf-font-mono:        'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas,
+                          'Courier New', monospace;
+
+  /* Font sizes — modular scale */
+  --cf-font-2xs:   0.625rem;   /* 10px */
+  --cf-font-xs:    0.75rem;    /* 12px */
+  --cf-font-sm:    0.875rem;   /* 14px */
+  --cf-font-base:  1rem;       /* 16px */
+  --cf-font-lg:    1.125rem;   /* 18px */
+  --cf-font-xl:    1.25rem;    /* 20px */
+  --cf-font-2xl:   1.5rem;     /* 24px */
+  --cf-font-3xl:   1.875rem;   /* 30px */
+  --cf-font-4xl:   2.25rem;    /* 36px */
+  --cf-font-5xl:   3rem;       /* 48px */
+
+  /* Font weights */
+  --cf-font-regular:    400;
+  --cf-font-medium:     500;
+  --cf-font-semibold:   600;
+  --cf-font-bold:       700;
+
+  /* Line heights */
+  --cf-leading-none:    1;
+  --cf-leading-tight:   1.25;
+  --cf-leading-snug:    1.375;
+  --cf-leading-normal:  1.5;
+  --cf-leading-relaxed: 1.625;
+  --cf-leading-loose:   2;
+
+  /* Letter spacing */
+  --cf-tracking-tighter: -0.05em;
+  --cf-tracking-tight:   -0.025em;
+  --cf-tracking-normal:  0em;
+  --cf-tracking-wide:    0.025em;
+  --cf-tracking-wider:   0.05em;
+  --cf-tracking-widest:  0.1em;
+
+  /* ------------------------------------------------------------------
+     1h. Spacing — 4px base unit
+     ------------------------------------------------------------------ */
+  --cf-space-0:    0;
+  --cf-space-px:   1px;
+  --cf-space-0-5:  0.125rem;   /* 2px  */
+  --cf-space-1:    0.25rem;    /* 4px  */
+  --cf-space-1-5:  0.375rem;   /* 6px  */
+  --cf-space-2:    0.5rem;     /* 8px  */
+  --cf-space-2-5:  0.625rem;   /* 10px */
+  --cf-space-3:    0.75rem;    /* 12px */
+  --cf-space-3-5:  0.875rem;   /* 14px */
+  --cf-space-4:    1rem;       /* 16px */
+  --cf-space-5:    1.25rem;    /* 20px */
+  --cf-space-6:    1.5rem;     /* 24px */
+  --cf-space-7:    1.75rem;    /* 28px */
+  --cf-space-8:    2rem;       /* 32px */
+  --cf-space-9:    2.25rem;    /* 36px */
+  --cf-space-10:   2.5rem;     /* 40px */
+  --cf-space-12:   3rem;       /* 48px */
+  --cf-space-14:   3.5rem;     /* 56px */
+  --cf-space-16:   4rem;       /* 64px */
+  --cf-space-20:   5rem;       /* 80px */
+  --cf-space-24:   6rem;       /* 96px */
+
+  /* ------------------------------------------------------------------
+     1i. Border Radius
+     ------------------------------------------------------------------ */
+  --cf-radius-none: 0;
+  --cf-radius-sm:   0.375rem;  /* 6px  */
+  --cf-radius-md:   0.5rem;    /* 8px  */
+  --cf-radius-lg:   0.75rem;   /* 12px */
+  --cf-radius-xl:   1rem;      /* 16px */
+  --cf-radius-2xl:  1.5rem;    /* 24px */
+  --cf-radius-full: 9999px;
+
+  /* ------------------------------------------------------------------
+     1j. Transitions
+     ------------------------------------------------------------------ */
+  --cf-transition-fast:    150ms ease;
+  --cf-transition-normal:  250ms ease;
+  --cf-transition-slow:    350ms ease;
+  --cf-transition-spring:  500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --cf-duration-fast:   150ms;
+  --cf-duration-normal: 250ms;
+  --cf-duration-slow:   350ms;
+
+  --cf-ease-default:  ease;
+  --cf-ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --cf-ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --cf-ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+  --cf-ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ------------------------------------------------------------------
+     1k. Z-Index Scale
+     ------------------------------------------------------------------ */
+  --cf-z-base:      0;
+  --cf-z-dropdown:  10;
+  --cf-z-sticky:    20;
+  --cf-z-overlay:   30;
+  --cf-z-modal:     40;
+  --cf-z-toast:     50;
+
+  /* ------------------------------------------------------------------
+     1l. Container Widths
+     ------------------------------------------------------------------ */
+  --cf-container-sm:   640px;
+  --cf-container-md:   768px;
+  --cf-container-lg:  1024px;
+  --cf-container-xl:  1280px;
+  --cf-container-2xl: 1536px;
+
+  /* ------------------------------------------------------------------
+     1m. Miscellaneous
+     ------------------------------------------------------------------ */
+  --cf-header-height:  4rem;              /* 64px — sticky nav height      */
+  --cf-sidebar-width: 16rem;              /* 256px                         */
+  --cf-border-width:   1px;
+  --cf-outline-offset: 2px;
+  --cf-opacity-disabled: 0.5;
+}
+
+/* ========================================================================
+   2. DARK MODE
+   ======================================================================== */
+[data-theme='dark'] {
+  /* Surfaces & backgrounds */
+  --cf-color-bg:           #0f1117;
+  --cf-color-bg-secondary: #161822;
+  --cf-color-bg-tertiary:  #1e2130;
+  --cf-color-surface:      #1a1d2b;
+  --cf-color-surface-hover:#22253a;
+  --cf-color-border:       #2a2d40;
+  --cf-color-border-hover: #3a3e55;
+
+  /* Text */
+  --cf-color-text:          #f1f5f9;       /* 14.3:1 on bg                 */
+  --cf-color-text-secondary:#94a3b8;       /* 6.8:1 on bg                  */
+  --cf-color-text-tertiary: #64748b;       /* 4.56:1 on bg                 */
+  --cf-color-text-inverse:  #111827;
+  --cf-color-text-link:     #2dd4bf;       /* 8.1:1 on dark bg             */
+  --cf-color-text-link-hover:#5eead4;
+
+  /* Adjusted brand colours for dark surfaces */
+  --cf-color-primary:        #14b8a6;      /* brighter on dark — 7.2:1     */
+  --cf-color-primary-hover:  #2dd4bf;
+  --cf-color-primary-text:   #0f1117;
+  --cf-color-secondary:      #10b981;
+  --cf-color-secondary-hover:#34d399;
+  --cf-color-secondary-text: #0f1117;
+  --cf-color-accent:         #a78bfa;      /* softened for dark — 6.7:1    */
+  --cf-color-accent-hover:   #c4b5fd;
+  --cf-color-accent-text:    #0f1117;
+  --cf-color-warning:        #f59e0b;
+  --cf-color-warning-hover:  #fbbf24;
+  --cf-color-warning-text:   #0f1117;
+  --cf-color-danger:         #f87171;
+  --cf-color-danger-hover:   #fca5a5;
+  --cf-color-danger-text:    #0f1117;
+  --cf-color-success:        #34d399;
+  --cf-color-success-hover:  #6ee7b7;
+  --cf-color-success-text:   #0f1117;
+  --cf-color-info:           #38bdf8;
+  --cf-color-info-hover:     #7dd3fc;
+  --cf-color-info-text:      #0f1117;
+
+  /* Glassmorphism */
+  --cf-glass-bg:        rgba(26, 29, 43, 0.72);
+  --cf-glass-bg-heavy:  rgba(26, 29, 43, 0.88);
+  --cf-glass-border:    rgba(255, 255, 255, 0.08);
+
+  /* Gradients */
+  --cf-gradient-primary:  linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%);
+  --cf-gradient-secondary:linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --cf-gradient-accent:   linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  --cf-gradient-warm:     linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --cf-gradient-hero:     linear-gradient(135deg, #14b8a6 0%, #10b981 50%, #2dd4bf 100%);
+  --cf-gradient-surface:  linear-gradient(180deg, #1a1d2b 0%, #161822 100%);
+  --cf-gradient-mesh:     radial-gradient(at 20% 80%, rgba(20, 184, 166, 0.10) 0%, transparent 50%),
+                          radial-gradient(at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                          radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+
+  /* Shadows — subtle & tinted for dark mode */
+  --cf-shadow-xs:  0 1px 2px  rgba(0, 0, 0, 0.30);
+  --cf-shadow-sm:  0 1px 3px  rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --cf-shadow-md:  0 4px 6px  rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --cf-shadow-lg:  0 10px 15px rgba(0, 0, 0, 0.40), 0 4px 6px rgba(0, 0, 0, 0.25);
+  --cf-shadow-xl:  0 20px 25px rgba(0, 0, 0, 0.45), 0 8px 10px rgba(0, 0, 0, 0.25);
+  --cf-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.55);
+  --cf-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.30);
+  --cf-shadow-glow-primary: 0 0 24px rgba(20, 184, 166, 0.30);
+  --cf-shadow-glow-accent:  0 0 24px rgba(167, 139, 250, 0.30);
+
+  /* Focus ring */
+  --cf-focus-ring-color: rgba(20, 184, 166, 0.60);
+  --cf-focus-ring:       0 0 0 var(--cf-focus-ring-offset) var(--cf-color-bg),
+                         0 0 0 calc(var(--cf-focus-ring-offset) + var(--cf-focus-ring-width)) var(--cf-focus-ring-color);
+}

@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.labelContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+}
+
+.label {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.percentage {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.track {
+  width: 100%;
+  background-color: var(--color-surface-hover);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  /* Prevent background color from leaking outside border-radius in some browsers */
+  transform: translateZ(0); 
+}
+
+/* Sizes */
+.sm { height: 0.375rem; }
+.md { height: 0.5rem; }
+.lg { height: 0.75rem; }
+
+.fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Variants */
+.primary {
+  background: var(--gradient-primary);
+}
+
+.success {
+  background-color: var(--color-success);
+}
+
+.warning {
+  background-color: var(--color-warning);
+}
+
+.danger {
+  background-color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}

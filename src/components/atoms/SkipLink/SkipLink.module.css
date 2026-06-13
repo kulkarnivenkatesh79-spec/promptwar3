@@ -1,0 +1,33 @@
+.skipLink {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  
+  /* Styling when focused */
+  background: var(--color-surface);
+  color: var(--color-primary);
+  padding: 1rem 1.5rem;
+  font-family: var(--font-family);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--color-primary);
+  z-index: var(--z-max);
+  text-decoration: none;
+  transition: top var(--transition-fast) ease;
+}
+
+.skipLink:focus,
+.skipLink:focus-visible {
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  clip: auto;
+  outline: none; /* We use border instead of outline for better visibility */
+}

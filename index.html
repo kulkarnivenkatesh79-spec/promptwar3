@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Security: Strict Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self';" />
+    <!-- Security: Prevent MIME type sniffing -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <title>EcoTrack — Carbon Footprint Awareness Platform</title>
+    <meta name="description" content="Track, understand, and reduce your carbon footprint with personalized insights. Calculate emissions from transport, diet, and energy usage with AI-powered recommendations." />
+    <meta name="keywords" content="carbon footprint, emissions tracker, sustainability, climate change, eco-friendly, carbon calculator" />
+    <meta name="author" content="EcoTrack" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="EcoTrack — Carbon Footprint Awareness Platform" />
+    <meta property="og:description" content="Track, understand, and reduce your carbon footprint with personalized insights and AI-powered recommendations." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Preload critical font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p>You need to enable JavaScript to run this application.</p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

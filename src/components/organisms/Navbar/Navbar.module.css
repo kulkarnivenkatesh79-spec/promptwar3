@@ -1,0 +1,222 @@
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: var(--z-sticky);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  transition: all var(--transition-normal) ease;
+}
+
+.scrolled {
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  border-bottom-color: transparent;
+}
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: transform var(--transition-fast) ease;
+  border-radius: var(--radius-sm);
+}
+
+.logo:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 4px;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  background: rgba(13, 148, 136, 0.1);
+  padding: 0.375rem;
+  border-radius: var(--radius-md);
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Desktop Navigation */
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast) ease;
+}
+
+.navLink:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+}
+
+.active {
+  color: var(--color-primary);
+  background-color: rgba(13, 148, 136, 0.1);
+}
+
+.active:hover {
+  background-color: rgba(13, 148, 136, 0.15);
+  color: var(--color-primary);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.iconButton:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+}
+
+.mobileToggle {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .mobileToggle {
+    display: none;
+  }
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  top: 4rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-surface);
+  z-index: var(--z-modal);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.mobileMenuOpen {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileMenuContent {
+  padding: 1.5rem;
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast) ease;
+}
+
+.mobileNavLink:active {
+  background-color: var(--color-surface-hover);
+}
+
+.mobileActive {
+  color: var(--color-primary);
+  background-color: rgba(13, 148, 136, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header, .navLink, .mobileMenu {
+    transition: none;
+  }
+}
