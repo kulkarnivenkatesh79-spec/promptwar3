@@ -9,20 +9,22 @@ const mockRecs: Recommendation[] = [
     title: 'Rec 1',
     description: 'Desc 1',
     category: RecommendationCategory.Transport,
-    impact: 'high',
     estimatedSavingsTonnes: 1.0,
     difficulty: Difficulty.Easy,
-    completed: false
+    completed: false,
+    icon: 'Car',
+    priorityScore: 90
   },
   {
     id: '2',
     title: 'Rec 2',
     description: 'Desc 2',
     category: RecommendationCategory.Diet,
-    impact: 'medium',
     estimatedSavingsTonnes: 0.5,
     difficulty: Difficulty.Medium,
-    completed: true
+    completed: true,
+    icon: 'Leaf',
+    priorityScore: 80
   }
 ];
 

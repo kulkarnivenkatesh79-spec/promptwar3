@@ -8,11 +8,11 @@ const mockRec: Recommendation = {
   title: 'Test Action',
   description: 'Test Description',
   category: RecommendationCategory.Transport,
-  impact: 'high',
   estimatedSavingsTonnes: 2.0,
   difficulty: Difficulty.Easy,
   completed: false,
-  icon: 'Zap'
+  icon: 'Zap',
+  priorityScore: 100
 };
 
 describe('ActionCard', () => {

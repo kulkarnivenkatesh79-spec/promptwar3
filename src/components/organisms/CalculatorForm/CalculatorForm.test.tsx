@@ -1,5 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import CalculatorForm from './CalculatorForm';
 import { CarbonProvider } from '../../../context/CarbonContext';
 import { BrowserRouter } from 'react-router-dom';
