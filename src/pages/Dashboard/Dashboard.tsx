@@ -112,7 +112,7 @@ export default function Dashboard() {
             <div className={styles.cardHeader}>
               <h3 className={styles.cardTitle}>Track Your Footprint Trend</h3>
             </div>
-            <div className={styles.chartContainer} aria-label="Line chart showing your emissions trend over the last 6 months">
+            <div className={styles.chartContainer} role="figure" aria-label="Line chart showing your emissions trend over the last 6 months">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -138,7 +138,7 @@ export default function Dashboard() {
             <div className={styles.cardHeader}>
               <h3 className={styles.cardTitle}>Track Category Breakdown</h3>
             </div>
-            <div className={styles.chartContainer} aria-label="Pie chart showing emissions by category">
+            <div className={styles.chartContainer} role="figure" aria-label="Pie chart showing emissions by category">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -161,7 +161,7 @@ export default function Dashboard() {
                 </PieChart>
               </ResponsiveContainer>
               
-              <div className={styles.legend} aria-label="Category legend">
+              <div className={styles.legend} role="group" aria-label="Category legend">
                 {categoryData.map((category) => (
                   <div key={category.name} className={styles.legendItem}>
                     <div className={styles.legendColor} style={{ backgroundColor: category.color }} aria-hidden="true" />

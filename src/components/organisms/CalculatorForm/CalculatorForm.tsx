@@ -129,7 +129,7 @@ export default function CalculatorForm() {
   return (
     <div className={styles.container}>
       {/* Step Indicator */}
-      <div className={styles.stepper} aria-label="Calculator Progress">
+      <div className={styles.stepper} role="region" aria-label="Calculator Progress">
         {[1, 2, 3].map((s) => (
           <div key={s} className={`${styles.step} ${step >= s ? styles.stepActive : ''}`}>
             <div className={styles.stepCircle} aria-current={step === s ? 'step' : undefined}>
@@ -146,7 +146,7 @@ export default function CalculatorForm() {
       <Card className={styles.formCard} padding="lg">
         {/* Step 1: Transport */}
         {step === 1 && (
-          <div className={styles.stepContent} role="tabpanel" aria-labelledby="step-1-label">
+          <div className={styles.stepContent} role="region" aria-labelledby="step-1-label">
             <h2 id="step-1-label" className={styles.stepTitle}>
               <Icons.Car className={styles.titleIcon} color="var(--color-primary)" />
               Transportation Habits
@@ -193,7 +193,7 @@ export default function CalculatorForm() {
 
         {/* Step 2: Diet */}
         {step === 2 && (
-          <div className={styles.stepContent} role="tabpanel" aria-labelledby="step-2-label">
+          <div className={styles.stepContent} role="region" aria-labelledby="step-2-label">
             <h2 id="step-2-label" className={styles.stepTitle}>
               <Icons.Utensils className={styles.titleIcon} color="var(--color-success)" />
               Dietary Choices
@@ -240,7 +240,7 @@ export default function CalculatorForm() {
 
         {/* Step 3: Energy */}
         {step === 3 && (
-          <div className={styles.stepContent} role="tabpanel" aria-labelledby="step-3-label">
+          <div className={styles.stepContent} role="region" aria-labelledby="step-3-label">
             <h2 id="step-3-label" className={styles.stepTitle}>
               <Icons.Zap className={styles.titleIcon} color="var(--color-warning)" />
               Home Energy Usage

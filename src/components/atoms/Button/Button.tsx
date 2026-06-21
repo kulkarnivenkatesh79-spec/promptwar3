@@ -79,7 +79,6 @@ const Button = memo(function Button({
       disabled={disabled || isLoading}
       onClick={handleClick}
       aria-busy={isLoading || undefined}
-      aria-disabled={disabled || isLoading || undefined}
       {...props}
     >
       {isLoading && (

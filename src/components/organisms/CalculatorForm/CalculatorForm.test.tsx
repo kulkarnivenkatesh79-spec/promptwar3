@@ -1,12 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import CalculatorForm from './CalculatorForm';
 import { CarbonProvider } from '../../../context/CarbonContext';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('CalculatorForm', () => {
 
-  it('renders and progresses through steps', async () => {
+  it('renders, progresses through steps, and handles async submission', async () => {
+    vi.useFakeTimers();
     render(
       <BrowserRouter>
         <CarbonProvider>
@@ -33,8 +34,17 @@ describe('CalculatorForm', () => {
 
     // Submit
     const submitBtn = screen.getByText('Save Results');
-    fireEvent.click(submitBtn);
+    
+    await act(async () => {
+      fireEvent.click(submitBtn);
+    });
 
+    // Fast-forward timeout
+    await act(async () => {
+      vi.runAllTimers();
+    });
+
+    vi.useRealTimers();
   });
 });
 

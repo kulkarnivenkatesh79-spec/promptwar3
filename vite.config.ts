@@ -17,6 +17,15 @@ export default defineConfig({
   build: {
     /** Generate source maps for debugging */
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          recharts: ['recharts'],
+          react: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+        },
+      },
+    },
   },
   test: {
     globals: true,

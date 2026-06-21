@@ -103,7 +103,7 @@ export default function Progress() {
             <h2 className={styles.sectionTitle}>Historical Footprint</h2>
             
             {chartData.length > 0 ? (
-              <div className={styles.chartContainer} aria-label="Stacked bar chart showing historical emissions by category">
+              <div className={styles.chartContainer} role="figure" aria-label="Stacked bar chart showing historical emissions by category">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} margin={{ top: 20, right: 0, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />

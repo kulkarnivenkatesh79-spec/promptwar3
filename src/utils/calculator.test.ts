@@ -229,6 +229,44 @@ describe('calculateEnergyEmissions', () => {
     };
     expect(calculateEnergyEmissions(usage)).toBe(0);
   });
+
+  it('uses fallback of 0 for invalid electricity source', () => {
+    const usage = {
+      electricityKwh: 1000,
+      electricitySource: 'UnknownSource' as EnergySource,
+      naturalGasTherms: 0,
+      heatingOilGallons: 0,
+    };
+    expect(calculateEnergyEmissions(usage)).toBe(0);
+  });
+});
+
+/* ============================================================
+ * calculateDietEmissions
+ * ============================================================ */
+
+describe('calculateDietEmissions - fallbacks', () => {
+  it('uses fallback of 0 for invalid diet type', () => {
+    const config = {
+      dietType: 'AlienDiet' as DietType,
+      mealsPerDay: 3,
+      foodWastePercent: 0,
+    };
+    expect(calculateDietEmissions(config)).toBe(0);
+  });
+});
+
+/* ============================================================
+ * calculateTransportEmissions - fallbacks
+ * ============================================================ */
+
+describe('calculateTransportEmissions - fallbacks', () => {
+  it('uses fallback of 0 for invalid transport mode', () => {
+    const entries = [
+      { id: '1', mode: 'Teleportation' as TransportMode, distanceKm: 100, frequencyPerWeek: 5 },
+    ];
+    expect(calculateTransportEmissions(entries)).toBe(0);
+  });
 });
 
 /* ============================================================
@@ -375,5 +413,15 @@ describe('generateId', () => {
   it('generates unique IDs', () => {
     const ids = new Set(Array.from({ length: 100 }, () => generateId()));
     expect(ids.size).toBe(100);
+  });
+
+  it('uses crypto fallback when randomUUID is unavailable', () => {
+    const originalCrypto = global.crypto;
+    // @ts-ignore
+    delete global.crypto;
+    const id = generateId();
+    expect(id).toBeTruthy();
+    expect(id).toMatch(/^[a-z0-9]+-[a-z0-9]+$/);
+    global.crypto = originalCrypto;
   });
 });

@@ -57,7 +57,7 @@ const RecommendationList = memo(function RecommendationList({
         </h2>
         
         {onFilterChange && (
-          <div className={styles.filters} aria-label="Filter recommendations">
+          <div className={styles.filters} role="group" aria-label="Filter recommendations">
             <Filter size={16} className={styles.filterIcon} aria-hidden="true" />
             <select 
               className={styles.filterSelect}

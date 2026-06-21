@@ -20,14 +20,24 @@ export default function Navbar() {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
 
-  // Handle scroll effect for glassmorphism
+  // Handle scroll effect for glassmorphism with throttling/debouncing
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setScrolled(window.scrollY > 10);
+      }, 50);
     };
 
+    // Initial check
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   // Close mobile menu on route change
@@ -140,25 +150,27 @@ export default function Navbar() {
         aria-hidden={!isMobileMenuOpen}
       >
         <div className={styles.mobileMenuContent}>
-          <nav aria-label="Mobile Navigation">
-            <ul className={styles.mobileNavList}>
-              {navLinks.map((link) => (
-                <li key={link.path}>
-                  <NavLink
-                    to={link.path}
-                    className={({ isActive }) => 
-                      `${styles.mobileNavLink} ${isActive ? styles.mobileActive : ''}`
-                    }
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    aria-current={location.pathname === link.path ? 'page' : undefined}
-                  >
-                    {link.icon}
-                    <span>{link.name}</span>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {isMobileMenuOpen && (
+            <nav aria-label="Mobile Navigation">
+              <ul className={styles.mobileNavList}>
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <NavLink
+                      to={link.path}
+                      className={({ isActive }) => 
+                        `${styles.mobileNavLink} ${isActive ? styles.mobileActive : ''}`
+                      }
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      aria-current={location.pathname === link.path ? 'page' : undefined}
+                    >
+                      {link.icon}
+                      <span>{link.name}</span>
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </div>
       </div>
     </>
