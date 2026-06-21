@@ -124,6 +124,16 @@ describe('formatDate', () => {
   it('handles empty string', () => {
     expect(formatDate('')).toBe('Invalid Date');
   });
+
+  it('handles formatting errors gracefully', () => {
+    const originalFormat = Intl.DateTimeFormat;
+    // @ts-ignore
+    Intl.DateTimeFormat = vi.fn().mockImplementation(() => ({
+      format: () => { throw new Error('Format failed'); }
+    }));
+    expect(formatDate('2026-01-15')).toBe('Invalid Date');
+    Intl.DateTimeFormat = originalFormat;
+  });
 });
 
 /* ============================================================
@@ -139,6 +149,16 @@ describe('formatMonth', () => {
 
   it('handles invalid date string', () => {
     expect(formatMonth('invalid')).toBe('Invalid Date');
+  });
+
+  it('handles formatting errors gracefully', () => {
+    const originalFormat = Intl.DateTimeFormat;
+    // @ts-ignore
+    Intl.DateTimeFormat = vi.fn().mockImplementation(() => ({
+      format: () => { throw new Error('Format failed'); }
+    }));
+    expect(formatMonth('2026-06-15')).toBe('Invalid Date');
+    Intl.DateTimeFormat = originalFormat;
   });
 });
 
@@ -216,5 +236,21 @@ describe('getRelativeTime', () => {
 
   it('returns empty string for invalid date', () => {
     expect(getRelativeTime('not-a-date')).toBe('');
+  });
+
+  it('returns full date string for dates older than 30 days', () => {
+    const olderThanMonth = new Date(Date.now() - 32 * 24 * 60 * 60 * 1000).toISOString();
+    const result = getRelativeTime(olderThanMonth);
+    // Should fallback to formatDate which returns Month Day, Year
+    expect(result).not.toBe('');
+    expect(result).not.toContain('ago');
+  });
+
+  it('handles formatting errors gracefully', () => {
+    // We can simulate an error by making getTime throw
+    const originalGetTime = Date.prototype.getTime;
+    Date.prototype.getTime = () => { throw new Error('Simulated error'); };
+    expect(getRelativeTime('2026-01-15')).toBe('');
+    Date.prototype.getTime = originalGetTime;
   });
 });

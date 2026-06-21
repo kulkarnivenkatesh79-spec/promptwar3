@@ -33,7 +33,7 @@ function App() {
   return (
     <ThemeProvider>
       <CarbonProvider>
-        <Router>
+        <Router basename="/promptwar3">
           <Layout>
             <Suspense fallback={<PageLoader />}>
               <Routes>
