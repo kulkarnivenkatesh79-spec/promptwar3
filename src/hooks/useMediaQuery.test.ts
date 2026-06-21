@@ -41,7 +41,7 @@ describe('useMediaQuery', () => {
   it('adds and removes event listener', () => {
     const { unmount } = renderHook(() => useMediaQuery('(min-width: 768px)'));
     
-    expect(window.matchMedia as any).toHaveBeenCalledWith('(min-width: 768px)');
+    expect((window.matchMedia as Mock)).toHaveBeenCalledWith('(min-width: 768px)');
     expect(addEventListenerMock).toHaveBeenCalledWith('change', expect.any(Function));
     
     unmount();
@@ -61,5 +61,15 @@ describe('useMediaQuery', () => {
     });
     
     expect(result.current).toBe(true);
+  });
+
+  it('handles missing matchMedia during initialization', () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: undefined,
+    });
+    
+    const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
+    expect(result.current).toBe(false);
   });
 });

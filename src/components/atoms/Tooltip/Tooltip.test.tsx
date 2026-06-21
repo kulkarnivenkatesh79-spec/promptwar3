@@ -82,6 +82,32 @@ describe('Tooltip', () => {
     expect(screen.queryByRole('tooltip')).toBeNull();
   });
 
+  it('hides tooltip on Escape key press', () => {
+    render(
+      <Tooltip content="Helper text">
+        <button>Press Esc</button>
+      </Tooltip>
+    );
+    
+    const trigger = screen.getByText('Press Esc').parentElement!;
+    
+    // Focus to show
+    fireEvent.focus(trigger);
+    
+    act(() => {
+      vi.advanceTimersByTime(300);
+    });
+    expect(screen.getByRole('tooltip')).toBeDefined();
+    
+    // Press Escape
+    fireEvent.keyDown(trigger, { key: 'Escape', code: 'Escape' });
+    
+    act(() => {
+      vi.advanceTimersByTime(200);
+    });
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
+
   it('handles different positions', () => {
     // Just testing that it renders without crashing for different positions
     const { rerender } = render(

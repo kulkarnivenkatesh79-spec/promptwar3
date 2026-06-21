@@ -47,4 +47,12 @@ describe('ActionCard', () => {
     expect(screen.getByText('Done')).toBeDefined();
     expect(screen.queryByText('Mark as Done')).toBeNull();
   });
+
+  it('renders without an icon', () => {
+    const recWithoutIcon = { ...mockRec, icon: undefined };
+    // @ts-expect-error - Intentionally testing missing icon
+    render(<ActionCard recommendation={recWithoutIcon} />);
+    // Should fallback to Lightbulb icon and not crash
+    expect(screen.getByText('Test Action')).toBeDefined();
+  });
 });

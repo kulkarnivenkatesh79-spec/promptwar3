@@ -229,6 +229,28 @@ describe('isValidDateString', () => {
   it('rejects wrong format', () => {
     expect(isValidDateString('01/15/2026')).toBe(false);
   });
+
+  it('rejects dates where parsed.getTime() is NaN despite regex match', () => {
+    // A string that passes regex but fails Date parsing, or mock Date parsing.
+    const originalDate = globalThis.Date;
+    
+    // Create a mock Date constructor that returns NaN for getTime
+    const mockDate = function() {
+      return {
+        getTime: () => NaN,
+        getUTCFullYear: () => 2026,
+        getUTCMonth: () => 0,
+        getUTCDate: () => 1
+      };
+    } as unknown as typeof Date;
+    mockDate.now = originalDate.now;
+    mockDate.parse = originalDate.parse;
+    mockDate.UTC = originalDate.UTC;
+
+    globalThis.Date = mockDate;
+    expect(isValidDateString('2026-01-01')).toBe(false);
+    globalThis.Date = originalDate;
+  });
 });
 
 /* ============================================================

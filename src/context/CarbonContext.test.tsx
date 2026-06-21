@@ -86,6 +86,36 @@ describe('CarbonProvider', () => {
     expect(result.current.state.profile.name).toBeTruthy();
   });
 
+  it('initializes with sample data when localStorage contains invalid structure', () => {
+    localStorage.setItem('carbon_footprint_data', JSON.stringify({ invalid: 'structure' }));
+    const { result } = renderHook(() => useCarbonContext(), { wrapper });
+    expect(result.current.state.entries.length).toBeGreaterThan(0);
+    // The state will be immediately persisted back to localStorage
+    expect(localStorage.getItem('carbon_footprint_data')).not.toBeNull();
+  });
+
+  it('initializes with sample data when localStorage contains unparseable JSON', () => {
+    localStorage.setItem('carbon_footprint_data', '{ unparseable: json');
+    const { result } = renderHook(() => useCarbonContext(), { wrapper });
+    expect(result.current.state.entries.length).toBeGreaterThan(0);
+    expect(localStorage.getItem('carbon_footprint_data')).not.toBeNull();
+  });
+
+  it('does not crash when persisting state fails', () => {
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = () => { throw new Error('Quota exceeded'); };
+    
+    const { result } = renderHook(() => useCarbonContext(), { wrapper });
+    
+    act(() => {
+      result.current.dispatch({ type: CarbonActionType.SetLoading, payload: true });
+    });
+    
+    expect(result.current.state.isLoading).toBe(true);
+    
+    localStorage.setItem = originalSetItem;
+  });
+
   it('throws when used outside provider', () => {
     expect(() => {
       renderHook(() => useCarbonContext());

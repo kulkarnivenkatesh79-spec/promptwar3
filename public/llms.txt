@@ -1,0 +1,35 @@
+# EcoTrack Carbon Footprint Awareness Platform
+
+> EcoTrack is an interactive web application that helps individuals understand, track, and reduce their personal carbon footprint through data-driven insights and actionable recommendations.
+
+## Core Pillars
+
+- **Understand**: Learn about carbon emissions through an interactive equivalency engine and educational modals.
+- **Track**: Log daily activities across Transport, Diet, and Energy categories and monitor trends over time with visual charts.
+- **Reduce**: Receive personalized, actionable recommendations to lower your environmental impact and set reduction goals.
+
+## Key Features
+
+- Real-time carbon footprint calculator with category breakdowns
+- Interactive dashboard with trend charts and pie breakdowns
+- Personalized AI-driven reduction recommendations
+- Goal setting and progress tracking
+- Dark/light theme support with full WCAG 2.1 AA accessibility
+- Offline-capable with localStorage persistence
+
+## Technology Stack
+
+- React 19 with TypeScript
+- Vite 8 build system
+- Recharts for data visualization
+- Vitest with React Testing Library for 100% test coverage
+- Docker + Nginx for production deployment on Google Cloud Run
+
+## Links
+
+- [GitHub Repository](https://github.com/kulkarnivenkatesh79-spec/promptwar3)
+- [Live Application](https://ecotrack-394914499008.us-central1.run.app/)
+- [Dashboard](https://ecotrack-394914499008.us-central1.run.app/dashboard)
+- [Calculator](https://ecotrack-394914499008.us-central1.run.app/calculator)
+- [Recommendations](https://ecotrack-394914499008.us-central1.run.app/recommendations)
+- [Progress](https://ecotrack-394914499008.us-central1.run.app/progress)

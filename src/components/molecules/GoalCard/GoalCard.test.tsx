@@ -43,4 +43,18 @@ describe('GoalCard', () => {
     
     expect(handleClick).toHaveBeenCalledWith(mockGoal.id);
   });
+
+  it('calls onClick when Enter or Space is pressed', () => {
+    const handleClick = vi.fn();
+    render(<GoalCard goal={mockGoal} currentEmissionsKg={750} onClick={handleClick} />);
+    
+    const card = screen.getByRole('button');
+    fireEvent.keyDown(card, { key: 'Enter', code: 'Enter' });
+    expect(handleClick).toHaveBeenCalledWith(mockGoal.id);
+    
+    handleClick.mockClear();
+    
+    fireEvent.keyDown(card, { key: ' ', code: 'Space' });
+    expect(handleClick).toHaveBeenCalledWith(mockGoal.id);
+  });
 });

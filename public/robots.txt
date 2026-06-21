@@ -1,0 +1,7 @@
+# robots.txt for EcoTrack Carbon Footprint Platform
+# https://ecotrack-394914499008.us-central1.run.app/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ecotrack-394914499008.us-central1.run.app/sitemap.xml

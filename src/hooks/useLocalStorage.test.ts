@@ -58,13 +58,30 @@ describe('useLocalStorage', () => {
   });
 
   it('handles SSR / localStorage unavailable gracefully on init', () => {
-    const originalLocalStorage = window.localStorage;
+    const originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
     Object.defineProperty(window, 'localStorage', { value: undefined, configurable: true });
     
     const { result } = renderHook(() => useLocalStorage(KEY, 'initial'));
     expect(result.current[0]).toBe('initial');
     
-    Object.defineProperty(window, 'localStorage', { value: originalLocalStorage, configurable: true });
+    if (originalLocalStorage) {
+      Object.defineProperty(window, 'localStorage', originalLocalStorage);
+    }
+  });
+
+  it('handles storage availability check throwing an error', () => {
+    const originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
+    Object.defineProperty(window, 'localStorage', {
+      get: () => { throw new Error('SecurityError'); },
+      configurable: true
+    });
+    
+    const { result } = renderHook(() => useLocalStorage(KEY, 'initial'));
+    expect(result.current[0]).toBe('initial');
+    
+    if (originalLocalStorage) {
+      Object.defineProperty(window, 'localStorage', originalLocalStorage);
+    }
   });
 
   it('handles localStorage errors when setting', () => {

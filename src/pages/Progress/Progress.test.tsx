@@ -116,6 +116,18 @@ describe('Progress Page', () => {
     expect(screen.getByText('No active goals')).toBeDefined();
   });
 
+  it('renders goals when currentEntry is null but goals exist', () => {
+    renderProgress({
+      ...mockStateEmpty,
+      goals: mockStateWithData.goals
+    });
+    
+    // The Progress page should pass 0 to currentEmissionsKg, preventing a crash
+    expect(screen.getByText('Active Goals')).toBeDefined();
+    expect(screen.getByText('Achieved Goals')).toBeDefined();
+    expect(screen.getByText('Desc')).toBeDefined();
+  });
+
   it('renders charts and goals when data exists', () => {
     renderProgress(mockStateWithData);
     

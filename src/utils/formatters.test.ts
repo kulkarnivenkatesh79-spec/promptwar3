@@ -219,8 +219,18 @@ describe('getRelativeTime', () => {
   it('returns hours ago for timestamps within the day', () => {
     const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
     const result = getRelativeTime(threeHoursAgo);
-    expect(result).toContain('hour');
+    expect(result).toContain('hours');
     expect(result).toContain('ago');
+  });
+
+  it('returns singular "hour ago" for exactly 1 hour', () => {
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    expect(getRelativeTime(oneHourAgo)).toBe('1 hour ago');
+  });
+
+  it('returns singular "min ago" for exactly 1 minute', () => {
+    const oneMinAgo = new Date(Date.now() - 60 * 1000).toISOString();
+    expect(getRelativeTime(oneMinAgo)).toBe('1 min ago');
   });
 
   it('returns "yesterday" for 1 day ago', () => {

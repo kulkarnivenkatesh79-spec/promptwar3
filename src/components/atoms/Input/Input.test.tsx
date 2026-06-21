@@ -59,4 +59,33 @@ describe('Input', () => {
     const input = screen.getByLabelText('Disabled') as HTMLInputElement;
     expect(input.disabled).toBe(true);
   });
+
+  it('renders with left and right icons', () => {
+    render(
+      <Input 
+        label="Icons" 
+        id="icons" 
+        leftIcon={<span data-testid="left-icon" />} 
+        rightIcon={<span data-testid="right-icon" />} 
+      />
+    );
+    expect(screen.getByTestId('left-icon')).toBeDefined();
+    expect(screen.getByTestId('right-icon')).toBeDefined();
+  });
+
+  it('renders without fullWidth and with required prop', () => {
+    render(<Input label="Required" id="req" fullWidth={false} required />);
+    const input = document.getElementById('req') as HTMLInputElement;
+    expect(input).toBeDefined();
+    expect(input.required).toBe(true);
+    // The required asterisk should be in the document (aria-hidden)
+    expect(screen.getByText('*')).toBeDefined();
+  });
+
+  it('generates an ID if not provided', () => {
+    render(<Input label="AutoID" />);
+    const input = screen.getByLabelText('AutoID') as HTMLInputElement;
+    expect(input.id).toBeDefined();
+    expect(input.id.length).toBeGreaterThan(0);
+  });
 });
