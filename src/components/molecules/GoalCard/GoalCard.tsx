@@ -33,7 +33,7 @@ const GoalCard = memo(function GoalCard({
   
   // Calculate progress (0% if current is double target, 100% if current <= target)
   // Progress is better when current is closer to target
-  let progressPercent = 0;
+  let progressPercent: number;
   if (currentEmissionsKg <= targetKg) {
     progressPercent = 100;
   } else {

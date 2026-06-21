@@ -52,7 +52,7 @@ const ActionCard = memo(function ActionCard({
       <div className={styles.layout}>
         <div className={styles.iconColumn}>
           <div className={`${styles.iconWrapper} ${styles[recommendation.category]}`} aria-hidden="true">
-            <Icon size={24} />
+            <Icon size={24} aria-hidden="true" />
           </div>
         </div>
         
@@ -66,12 +66,12 @@ const ActionCard = memo(function ActionCard({
                 {recommendation.difficulty.charAt(0).toUpperCase() + recommendation.difficulty.slice(1)}
               </Badge>
               {isHighImpact && (
-                <Badge variant="danger" icon={<Icons.Zap size={12} />}>
+                <Badge variant="danger" icon={<Icons.Zap size={12} aria-hidden="true" />}>
                   High Impact Action
                 </Badge>
               )}
               {isCompleted && (
-                <Badge variant="success" icon={<Icons.Check size={12} />}>
+                <Badge variant="success" icon={<Icons.Check size={12} aria-hidden="true" />}>
                   Done
                 </Badge>
               )}
@@ -87,7 +87,7 @@ const ActionCard = memo(function ActionCard({
                 variant="primary" 
                 size="sm" 
                 onClick={() => onComplete?.(recommendation.id)}
-                leftIcon={<Icons.Check size={16} />}
+                leftIcon={<Icons.Check size={16} aria-hidden="true" />}
               >
                 Mark as Done
               </Button>
@@ -95,7 +95,7 @@ const ActionCard = memo(function ActionCard({
                 variant="outline" 
                 size="sm" 
                 onClick={() => onAction?.(recommendation.id)}
-                leftIcon={<Icons.Target size={16} />}
+                leftIcon={<Icons.Target size={16} aria-hidden="true" />}
               >
                 Set as Goal
               </Button>

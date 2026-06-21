@@ -4,7 +4,7 @@
  * @module components/organisms/CalculatorForm
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Card } from '../../atoms/Card';
 import { Button } from '../../atoms/Button';
 import { CategorySlider } from '../../molecules/CategorySlider';
@@ -40,10 +40,7 @@ export default function CalculatorForm() {
   const [heatingOilGallons, setHeatingOilGallons] = useState(0);
 
   // Live calculation for preview
-  const [liveTotal, setLiveTotal] = useState(0);
-
-  // Update live preview when inputs change
-  useEffect(() => {
+  const liveTotal = useMemo(() => {
     const transportTotal = calculateTransportEmissions([{
       id: 'preview',
       mode: transportMode,
@@ -64,7 +61,7 @@ export default function CalculatorForm() {
       heatingOilGallons
     });
     
-    setLiveTotal(calculateTotalEmissions(transportTotal, dietTotal, energyTotal));
+    return calculateTotalEmissions(transportTotal, dietTotal, energyTotal);
   }, [transportMode, distanceKm, frequency, dietType, mealsPerDay, foodWaste, electricityKwh, naturalGasTherms, heatingOilGallons]);
 
   const handleNext = () => setStep(prev => Math.min(prev + 1, 3) as 1 | 2 | 3);
@@ -133,7 +130,7 @@ export default function CalculatorForm() {
         {[1, 2, 3].map((s) => (
           <div key={s} className={`${styles.step} ${step >= s ? styles.stepActive : ''}`}>
             <div className={styles.stepCircle} aria-current={step === s ? 'step' : undefined}>
-              {step > s ? <Icons.Check size={16} /> : s}
+              {step > s ? <Icons.Check size={16} aria-hidden="true" /> : s}
             </div>
             <span className={styles.stepLabel}>
               {s === 1 ? 'Transport' : s === 2 ? 'Diet' : 'Energy'}
@@ -148,7 +145,7 @@ export default function CalculatorForm() {
         {step === 1 && (
           <div className={styles.stepContent} role="region" aria-labelledby="step-1-label">
             <h2 id="step-1-label" className={styles.stepTitle}>
-              <Icons.Car className={styles.titleIcon} color="var(--color-primary)" />
+              <Icons.Car className={styles.titleIcon} color="var(--color-primary)" aria-hidden="true" />
               Transportation Habits
             </h2>
             
@@ -195,7 +192,7 @@ export default function CalculatorForm() {
         {step === 2 && (
           <div className={styles.stepContent} role="region" aria-labelledby="step-2-label">
             <h2 id="step-2-label" className={styles.stepTitle}>
-              <Icons.Utensils className={styles.titleIcon} color="var(--color-success)" />
+              <Icons.Utensils className={styles.titleIcon} color="var(--color-success)" aria-hidden="true" />
               Dietary Choices
             </h2>
             
@@ -242,7 +239,7 @@ export default function CalculatorForm() {
         {step === 3 && (
           <div className={styles.stepContent} role="region" aria-labelledby="step-3-label">
             <h2 id="step-3-label" className={styles.stepTitle}>
-              <Icons.Zap className={styles.titleIcon} color="var(--color-warning)" />
+              <Icons.Zap className={styles.titleIcon} color="var(--color-warning)" aria-hidden="true" />
               Home Energy Usage
             </h2>
             
@@ -293,7 +290,7 @@ export default function CalculatorForm() {
             variant="ghost" 
             onClick={handlePrev}
             disabled={step === 1 || isSubmitting}
-            leftIcon={<Icons.ArrowLeft size={16} />}
+            leftIcon={<Icons.ArrowLeft size={16} aria-hidden="true" />}
           >
             Back
           </Button>
@@ -302,7 +299,7 @@ export default function CalculatorForm() {
             <Button 
               variant="primary" 
               onClick={handleNext}
-              rightIcon={<Icons.ArrowRight size={16} />}
+              rightIcon={<Icons.ArrowRight size={16} aria-hidden="true" />}
             >
               Continue
             </Button>
@@ -311,7 +308,7 @@ export default function CalculatorForm() {
               variant="primary" 
               onClick={handleSubmit}
               isLoading={isSubmitting}
-              leftIcon={<Icons.Save size={16} />}
+              leftIcon={<Icons.Save size={16} aria-hidden="true" />}
             >
               Save Results
             </Button>

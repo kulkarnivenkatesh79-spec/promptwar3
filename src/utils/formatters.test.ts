@@ -127,7 +127,7 @@ describe('formatDate', () => {
 
   it('handles formatting errors gracefully', () => {
     const originalFormat = Intl.DateTimeFormat;
-    // @ts-ignore
+    // @ts-expect-error - mock global
     Intl.DateTimeFormat = vi.fn().mockImplementation(() => ({
       format: () => { throw new Error('Format failed'); }
     }));
@@ -153,7 +153,7 @@ describe('formatMonth', () => {
 
   it('handles formatting errors gracefully', () => {
     const originalFormat = Intl.DateTimeFormat;
-    // @ts-ignore
+    // @ts-expect-error - mock global
     Intl.DateTimeFormat = vi.fn().mockImplementation(() => ({
       format: () => { throw new Error('Format failed'); }
     }));

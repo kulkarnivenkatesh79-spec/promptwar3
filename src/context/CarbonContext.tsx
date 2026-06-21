@@ -71,6 +71,7 @@ function dateMonthsAgo(monthsAgo: number): string {
  *
  * @returns A fully-formed {@link CarbonState} with realistic sample data
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function generateSampleData(): CarbonState {
   // --- Transport entries template ---
   const sampleTransport: readonly TransportEntry[] = [
@@ -568,6 +569,7 @@ export const CarbonProvider: React.FC<CarbonProviderProps> = ({ children }) => {
  * });
  * ```
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCarbonContext(): CarbonContextValue {
   const context = useContext(CarbonContext);
   if (context === null) {

@@ -30,7 +30,7 @@ export default function Dashboard() {
     return (
       <div className={styles.emptyState}>
         <div className={styles.emptyIconWrapper}>
-          <Leaf size={48} className={styles.emptyIcon} />
+          <Leaf size={48} className={styles.emptyIcon} aria-hidden="true" />
         </div>
         <h1 className={styles.emptyTitle}>Welcome to EcoTrack</h1>
         <p className={styles.emptyDescription} aria-label="App Mission">
@@ -38,7 +38,7 @@ export default function Dashboard() {
         </p>
         <Button 
           size="lg" 
-          leftIcon={<Calculator size={20} />}
+          leftIcon={<Calculator size={20} aria-hidden="true" />}
           onClick={() => navigate('/calculator')}
           className={styles.ctaButton}
         >
@@ -62,7 +62,7 @@ export default function Dashboard() {
         <div style={{ display: 'flex', gap: '1rem' }}>
           <Button 
             variant="ghost" 
-            leftIcon={<Info size={18} />}
+            leftIcon={<Info size={18} aria-hidden="true" />}
             onClick={() => setUnderstandModalOpen(true)}
             aria-label="Understand carbon equivalents"
           >
@@ -70,7 +70,7 @@ export default function Dashboard() {
           </Button>
           <Button 
             variant="primary" 
-            leftIcon={<Calculator size={18} />}
+            leftIcon={<Calculator size={18} aria-hidden="true" />}
             onClick={() => navigate('/calculator')}
             aria-label="Update footprint calculation"
           >

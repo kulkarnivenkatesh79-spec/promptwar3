@@ -1,10 +1,11 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { useMediaQuery } from './useMediaQuery';
+import type { Mock } from 'vitest';
 
 describe('useMediaQuery', () => {
-  let addEventListenerMock: any;
-  let removeEventListenerMock: any;
+  let addEventListenerMock: Mock;
+  let removeEventListenerMock: Mock;
   
   beforeEach(() => {
     addEventListenerMock = vi.fn();
@@ -40,6 +41,7 @@ describe('useMediaQuery', () => {
   it('adds and removes event listener', () => {
     const { unmount } = renderHook(() => useMediaQuery('(min-width: 768px)'));
     
+    expect(window.matchMedia as any).toHaveBeenCalledWith('(min-width: 768px)');
     expect(addEventListenerMock).toHaveBeenCalledWith('change', expect.any(Function));
     
     unmount();

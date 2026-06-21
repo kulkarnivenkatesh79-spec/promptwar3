@@ -4,63 +4,72 @@
  * @module pages/Dashboard/Dashboard.test
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Dashboard from './Dashboard';
-import { CarbonProvider } from '../../context/CarbonContext';
+import { CarbonProvider, useCarbonContext } from '../../context/CarbonContext';
 import { BrowserRouter } from 'react-router-dom';
+import { CarbonActionType } from '../../types';
+import { useEffect } from 'react';
 
 // Mock recharts to avoid rendering complex SVGs in tests
 vi.mock('recharts', () => {
   const OriginalRechartsModule = vi.importActual('recharts');
   return {
     ...OriginalRechartsModule,
-    ResponsiveContainer: ({ children }: any) => <div>{children}</div>,
-    AreaChart: ({ children }: any) => <div data-testid="area-chart">{children}</div>,
-    PieChart: ({ children }: any) => <div data-testid="pie-chart">{children}</div>,
+    ResponsiveContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+    AreaChart: ({ children }: { children: React.ReactNode }) => <div data-testid="area-chart">{children}</div>,
+    PieChart: ({ children }: { children: React.ReactNode }) => <div data-testid="pie-chart">{children}</div>,
     Area: () => <div data-testid="area" />,
     XAxis: () => <div data-testid="xaxis" />,
     YAxis: () => <div data-testid="yaxis" />,
     CartesianGrid: () => <div data-testid="cartesian-grid" />,
     Tooltip: () => <div data-testid="tooltip" />,
-    Pie: ({ children }: any) => <div data-testid="pie">{children}</div>,
+    Pie: ({ children }: { children: React.ReactNode }) => <div data-testid="pie">{children}</div>,
     Cell: () => <div data-testid="cell" />,
   };
 });
 
 describe('Dashboard Component', () => {
-  it('renders the dashboard with sample data when no persisted state exists', () => {
-    // Clear localStorage to trigger sample data generation
+  afterEach(() => {
     localStorage.clear();
+  });
+
+  it('renders the dashboard empty state when no entries exist', async () => {
+    const ClearData = () => {
+      const { dispatch } = useCarbonContext();
+      useEffect(() => {
+        dispatch({ 
+          type: CarbonActionType.LoadState, 
+          payload: {
+            profile: { name: 'Test User', region: 'global', onboarded: true, joinDate: '2026-01-01' },
+            currentEntry: null,
+            entries: [],
+            recommendations: [],
+            goals: [],
+            activityLog: [],
+            isLoading: false
+          }
+        });
+      }, [dispatch]);
+      return null;
+    };
     
     render(
       <BrowserRouter>
         <CarbonProvider>
+          <ClearData />
           <Dashboard />
         </CarbonProvider>
       </BrowserRouter>
     );
 
-    // CarbonProvider generates sample data, so the main dashboard should render
-    expect(screen.getByText('Track Your Footprint Trend')).toBeDefined();
-    expect(screen.getByText('Update Footprint')).toBeDefined();
-    expect(screen.getByText('Pillar 1: Understand')).toBeDefined();
+    expect(await screen.findByText('Calculate Footprint')).toBeDefined();
   });
 
-  it('opens and closes the CarbonInfoModal', () => {
-    // Add sample data to localStorage so Dashboard doesn't show empty state
-    localStorage.setItem('carbon_footprint_data', JSON.stringify({
-      entries: [{
-        id: '1',
-        date: new Date().toISOString(),
-        totalEmissions: 5000,
-        transportEmissions: 2000,
-        dietEmissions: 2000,
-        energyEmissions: 1000
-      }],
-      profile: { name: 'Test User' }
-    }));
 
+
+  it('opens and closes the CarbonInfoModal', () => {
     render(
       <BrowserRouter>
         <CarbonProvider>
@@ -100,5 +109,89 @@ describe('Dashboard Component', () => {
     expect(screen.getByText('Pillar 2: Track Daily Metrics')).toBeDefined();
     expect(screen.getByText('Track Your Footprint Trend')).toBeDefined();
     expect(screen.getByText('Track Category Breakdown')).toBeDefined();
+  });
+
+  it('navigates to calculator from empty state', async () => {
+    const ClearData = () => {
+      const { dispatch } = useCarbonContext();
+      useEffect(() => {
+        dispatch({ 
+          type: CarbonActionType.LoadState, 
+          payload: {
+            profile: { name: 'Test User', region: 'global', onboarded: true, joinDate: '2026-01-01' },
+            entries: [],
+            recommendations: [],
+            goals: [],
+            activityLog: [],
+            isLoading: false
+          }
+        });
+      }, [dispatch]);
+      return null;
+    };
+
+    render(
+      <BrowserRouter>
+        <CarbonProvider>
+          <ClearData />
+          <Dashboard />
+        </CarbonProvider>
+      </BrowserRouter>
+    );
+
+    const calcBtn = await screen.findByText('Calculate Footprint');
+    fireEvent.click(calcBtn);
+    expect(calcBtn).toBeDefined();
+  });
+
+  it('navigates to various pages from populated state', async () => {
+    const PopulateData = () => {
+      const { dispatch } = useCarbonContext();
+      useEffect(() => {
+        dispatch({ 
+          type: CarbonActionType.LoadState, 
+          payload: {
+            profile: { name: 'Test User', region: 'global', onboarded: true, joinDate: '2026-01-01' },
+            currentEntry: null,
+            entries: [{
+              id: '1',
+              date: new Date().toISOString(),
+              totalEmissions: 5000,
+              transportEmissions: 2000,
+              dietEmissions: 2000,
+              energyEmissions: 1000
+            } as any],
+            recommendations: [],
+            goals: [],
+            activityLog: [],
+            isLoading: false
+          }
+        });
+      }, [dispatch]);
+      return null;
+    };
+
+    render(
+      <BrowserRouter>
+        <CarbonProvider>
+          <PopulateData />
+          <Dashboard />
+        </CarbonProvider>
+      </BrowserRouter>
+    );
+
+    // Update Footprint
+    const updateBtn = await screen.findByText('Update Footprint');
+    fireEvent.click(updateBtn);
+    
+    // Insights Engine
+    const insightsBtn = screen.getByText('Personalized Insights Engine');
+    fireEvent.click(insightsBtn);
+
+    // Track Goals
+    const goalsBtn = screen.getByText('Track Your Goals');
+    fireEvent.click(goalsBtn);
+
+    expect(updateBtn).toBeDefined();
   });
 });

@@ -417,7 +417,7 @@ describe('generateId', () => {
 
   it('uses crypto fallback when randomUUID is unavailable', () => {
     const originalCrypto = globalThis.crypto;
-    // @ts-ignore
+    // @ts-expect-error - testing invalid fallback
     delete globalThis.crypto;
     const id = generateId();
     expect(id).toBeTruthy();

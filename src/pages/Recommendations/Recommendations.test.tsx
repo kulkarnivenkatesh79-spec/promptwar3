@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import Recommendations from './Recommendations';
 import { CarbonProvider } from '../../context/CarbonContext';
-import { type CarbonState, RecommendationCategory } from '../../types';
+import { type CarbonState, type Recommendation, RecommendationCategory, type Difficulty, type CarbonEntry } from '../../types';
 
 describe('Recommendations Page', () => {
   const baseProfile = {
@@ -24,11 +24,11 @@ describe('Recommendations Page', () => {
         description: 'Eat more plants',
         category: RecommendationCategory.Diet,
         estimatedSavingsTonnes: 0.2,
-        difficulty: 'medium' as any,
+        difficulty: 'medium' as unknown as Difficulty,
         priorityScore: 80,
         completed: false,
         icon: 'leaf',
-      } as any
+      } as unknown as Recommendation
     ],
     entries: [
       {
@@ -38,7 +38,7 @@ describe('Recommendations Page', () => {
         transportEmissions: 300,
         dietEmissions: 400,
         energyEmissions: 300,
-      } as unknown as any
+      } as unknown as CarbonEntry
     ],
     goals: [],
     activityLog: [],
@@ -81,5 +81,26 @@ describe('Recommendations Page', () => {
     
     // Check for the AI Recommendations section
     expect(screen.getByText('AI Recommendations')).toBeDefined();
+  });
+
+  it('handles completing and setting goal on a recommendation', () => {
+    // We need to inject window.alert to prevent JSDOM errors if handleAction calls alert
+    vi.spyOn(window, 'alert').mockImplementation(() => {});
+    
+    renderRecommendations(mockStateWithData);
+    
+    // Test completing
+    const completeBtn = screen.getAllByText('Mark as Done')[0];
+    if (completeBtn) {
+      completeBtn.click();
+    }
+    
+    // Test action (Set Goal)
+    const goalBtn = screen.getAllByText('Set as Goal')[0];
+    if (goalBtn) {
+      goalBtn.click();
+    }
+    
+    expect(window.alert).toHaveBeenCalled();
   });
 });

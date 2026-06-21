@@ -197,6 +197,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
  * );
  * ```
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme(): ThemeContextValue {
   const context = useContext(ThemeContext);
   if (context === null) {

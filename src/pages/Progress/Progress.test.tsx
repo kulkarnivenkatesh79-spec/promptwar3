@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
+import type { CarbonEntry, RecommendationCategory } from '../../types';
 import Progress from './Progress';
 import { CarbonProvider } from '../../context/CarbonContext';
 import type { CarbonState } from '../../types';
 
 // Mock Recharts to avoid DOM/SVG issues in JSDOM
 vi.mock('recharts', () => ({
-  ResponsiveContainer: ({ children }: any) => <div>{children}</div>,
+  ResponsiveContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   LineChart: () => <div data-testid="line-chart"></div>,
   BarChart: () => <div data-testid="bar-chart"></div>,
   Bar: () => <div />,
@@ -40,7 +41,15 @@ describe('Progress Page', () => {
         transportEmissions: 300,
         dietEmissions: 400,
         energyEmissions: 300,
-      } as unknown as any
+      } as unknown as CarbonEntry,
+      {
+        id: '2',
+        date: '2026-05-01',
+        totalEmissions: 1200,
+        transportEmissions: 400,
+        dietEmissions: 400,
+        energyEmissions: 400,
+      } as unknown as CarbonEntry
     ],
     goals: [
       {
@@ -50,9 +59,32 @@ describe('Progress Page', () => {
         startDate: '2026-01-01',
         targetDate: '2026-12-31',
         achieved: false,
+      },
+      {
+        id: 'g2',
+        description: 'Achieved Goal',
+        targetTonnes: 1.0,
+        startDate: '2026-01-01',
+        targetDate: '2026-06-01',
+        achieved: true,
       }
     ],
-    activityLog: [],
+    activityLog: [
+      {
+        id: 'a1',
+        action: 'Test action',
+        timestamp: '2026-06-01',
+        category: 'transport' as RecommendationCategory,
+        impactKg: -50,
+      },
+      {
+        id: 'a2',
+        action: 'Bad action',
+        timestamp: '2026-06-02',
+        category: 'energy' as RecommendationCategory,
+        impactKg: 10,
+      }
+    ],
     isLoading: false,
   };
 

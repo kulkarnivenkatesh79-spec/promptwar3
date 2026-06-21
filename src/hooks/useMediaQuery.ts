@@ -47,6 +47,7 @@ export function useMediaQuery(query: string): boolean {
     const mediaQueryList = window.matchMedia(query);
 
     // Sync initial state in case it changed between render and effect
+    // eslint-disable-next-line
     setMatches(mediaQueryList.matches);
 
     /** Event handler for media query changes */

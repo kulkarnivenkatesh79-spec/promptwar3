@@ -67,7 +67,7 @@ export default function Progress() {
       <div className={styles.impactGrid}>
         <Card className={styles.impactCard} padding="lg">
           <div className={styles.impactIconWrapper} style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)' }}>
-            <Trophy size={28} />
+            <Trophy size={28} aria-hidden="true" />
           </div>
           <div className={styles.impactContent}>
             <span className={styles.impactLabel}>Lifetime Reductions</span>
@@ -77,7 +77,7 @@ export default function Progress() {
         
         <Card className={styles.impactCard} padding="lg">
           <div className={styles.impactIconWrapper} style={{ backgroundColor: 'rgba(6, 182, 212, 0.1)', color: '#06b6d4' }}>
-            <Target size={28} />
+            <Target size={28} aria-hidden="true" />
           </div>
           <div className={styles.impactContent}>
             <span className={styles.impactLabel}>Goals Achieved</span>
@@ -87,7 +87,7 @@ export default function Progress() {
 
         <Card className={styles.impactCard} padding="lg">
           <div className={styles.impactIconWrapper} style={{ backgroundColor: 'rgba(139, 92, 246, 0.1)', color: '#8b5cf6' }}>
-            <TrendingUp size={28} />
+            <TrendingUp size={28} aria-hidden="true" />
           </div>
           <div className={styles.impactContent}>
             <span className={styles.impactLabel}>Tree Equivalent</span>
@@ -122,7 +122,7 @@ export default function Progress() {
               </div>
             ) : (
               <div className={styles.emptyChart}>
-                <Calendar size={48} className={styles.emptyIcon} />
+                <Calendar size={48} className={styles.emptyIcon} aria-hidden="true" />
                 <p>Calculate your footprint multiple times to see historical trends.</p>
               </div>
             )}
@@ -173,7 +173,7 @@ export default function Progress() {
               ))
             ) : (
               <Card className={styles.emptyGoals}>
-                <Target size={32} className={styles.emptyIcon} />
+                <Target size={32} className={styles.emptyIcon} aria-hidden="true" />
                 <h3>No active goals</h3>
                 <p>Set goals from the Recommendations page to start tracking your reduction targets.</p>
               </Card>
