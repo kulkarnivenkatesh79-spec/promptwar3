@@ -120,7 +120,7 @@ export default function CalculatorForm() {
       // Navigate to dashboard
       navigate('/');
     } catch (error) {
-      console.error('Failed to save calculation', error);
+      if (import.meta.env.DEV) console.error('Failed to save calculation', error);
     } finally {
       setIsSubmitting(false);
     }

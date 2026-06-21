@@ -360,7 +360,7 @@ function carbonReducer(state: CarbonState, action: CarbonAction): CarbonState {
     default: {
       // Exhaustiveness check — the `never` type ensures all cases are handled
       const _exhaustive: never = action;
-      console.warn('[carbonReducer] Unhandled action:', _exhaustive);
+      if (import.meta.env.DEV) console.warn('[carbonReducer] Unhandled action:', _exhaustive);
       return state;
     }
   }
@@ -424,19 +424,23 @@ function loadPersistedState(): CarbonState | null {
     const parsed: unknown = JSON.parse(raw);
 
     if (!isValidCarbonState(parsed)) {
-      console.warn(
-        '[CarbonContext] Stored state failed validation. Using sample data.',
-      );
+      if (import.meta.env.DEV) {
+        console.warn(
+          '[CarbonContext] Stored state failed validation. Using sample data.',
+        );
+      }
       window.localStorage.removeItem(STORAGE_KEY);
       return null;
     }
 
     return parsed;
   } catch (error) {
-    console.warn(
-      '[CarbonContext] Failed to parse stored state. Using sample data.',
-      error,
-    );
+    if (import.meta.env.DEV) {
+      console.warn(
+        '[CarbonContext] Failed to parse stored state. Using sample data.',
+        error,
+      );
+    }
     try {
       window.localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -456,7 +460,7 @@ function persistState(state: CarbonState): void {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
   } catch (error) {
-    console.warn('[CarbonContext] Failed to persist state:', error);
+    if (import.meta.env.DEV) console.warn('[CarbonContext] Failed to persist state:', error);
   }
 }
 

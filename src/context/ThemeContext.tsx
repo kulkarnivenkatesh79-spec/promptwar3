@@ -40,7 +40,7 @@ function loadStoredPreference(): Theme {
       return stored;
     }
   } catch (error) {
-    console.warn('[ThemeContext] Failed to read theme preference:', error);
+    if (import.meta.env.DEV) console.warn('[ThemeContext] Failed to read theme preference:', error);
   }
   return 'system';
 }
@@ -54,7 +54,7 @@ function savePreference(preference: Theme): void {
       window.localStorage.setItem(THEME_STORAGE_KEY, preference);
     }
   } catch (error) {
-    console.warn('[ThemeContext] Failed to persist theme preference:', error);
+    if (import.meta.env.DEV) console.warn('[ThemeContext] Failed to persist theme preference:', error);
   }
 }
 

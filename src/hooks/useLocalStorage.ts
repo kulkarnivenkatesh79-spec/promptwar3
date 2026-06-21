@@ -68,11 +68,13 @@ export function useLocalStorage<T>(
       }
       return JSON.parse(item) as T;
     } catch (error) {
-      console.warn(
-        `[useLocalStorage] Failed to parse stored value for key "${key}". ` +
-          `Falling back to initial value.`,
-        error,
-      );
+      if (import.meta.env.DEV) {
+        console.warn(
+          `[useLocalStorage] Failed to parse stored value for key "${key}". ` +
+            `Falling back to initial value.`,
+          error,
+        );
+      }
       // Clear corrupt data so it doesn't persist
       try {
         window.localStorage.removeItem(key);
@@ -99,10 +101,12 @@ export function useLocalStorage<T>(
           try {
             window.localStorage.setItem(key, JSON.stringify(nextValue));
           } catch (error) {
-            console.warn(
-              `[useLocalStorage] Failed to persist value for key "${key}".`,
-              error,
-            );
+            if (import.meta.env.DEV) {
+              console.warn(
+                `[useLocalStorage] Failed to persist value for key "${key}".`,
+                error,
+              );
+            }
           }
         }
 

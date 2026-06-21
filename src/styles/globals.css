@@ -20,8 +20,7 @@
    ======================================================================== */
 @import './variables.css';
 
-/* Google Fonts — Inter (400 regular, 500 medium, 600 semi, 700 bold) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Google Fonts — loaded via <link> in index.html for non-render-blocking delivery */
 
 /* ========================================================================
    1. CSS Reset / Normalize

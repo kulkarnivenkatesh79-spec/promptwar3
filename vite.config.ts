@@ -15,13 +15,16 @@ export default defineConfig({
     },
   },
   build: {
-    /** Generate source maps for debugging */
-    sourcemap: true,
+    /** Disable source maps in production to avoid 'Missing source maps' warning */
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks(id: string) {
           if (id.includes('node_modules/recharts')) {
             return 'recharts';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'icons';
           }
           if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router')) {
             return 'router';
