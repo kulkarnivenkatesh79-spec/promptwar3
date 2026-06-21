@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import Progress from './Progress';
 import { CarbonProvider } from '../../context/CarbonContext';
-import { CarbonState, EcoGrade } from '../../types';
+import type { CarbonState } from '../../types';
 
 // Mock Recharts to avoid DOM/SVG issues in JSDOM
 vi.mock('recharts', () => ({
@@ -37,24 +37,19 @@ describe('Progress Page', () => {
         id: '1',
         date: '2026-06-01',
         totalEmissions: 1000,
-        ecoGrade: EcoGrade.A,
         transportEmissions: 300,
         dietEmissions: 400,
         energyEmissions: 300,
-        recommendations: [],
-      }
+      } as unknown as any
     ],
     goals: [
       {
         id: 'g1',
-        title: 'Goal 1',
         description: 'Desc',
-        category: 'transport' as any,
+        targetTonnes: 0.5,
+        startDate: '2026-01-01',
         targetDate: '2026-12-31',
-        targetReduction: 500,
-        currentProgress: 100,
-        completed: false,
-        createdAt: '2026-01-01',
+        achieved: false,
       }
     ],
     activityLog: [],

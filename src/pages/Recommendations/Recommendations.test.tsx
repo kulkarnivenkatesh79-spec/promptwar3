@@ -1,9 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import Recommendations from './Recommendations';
 import { CarbonProvider } from '../../context/CarbonContext';
-import { CarbonState, RecommendationCategory } from '../../types';
+import { type CarbonState, RecommendationCategory } from '../../types';
 
 describe('Recommendations Page', () => {
   const baseProfile = {
@@ -17,34 +17,34 @@ describe('Recommendations Page', () => {
   const mockStateWithData: CarbonState = {
     profile: baseProfile,
     currentEntry: null,
-    recommendations: [],
+    recommendations: [
+      {
+        id: 'r1',
+        title: 'Plant-based diet',
+        description: 'Eat more plants',
+        category: RecommendationCategory.Diet,
+        estimatedSavingsTonnes: 0.2,
+        difficulty: 'medium' as any,
+        priorityScore: 80,
+        completed: false,
+        icon: 'leaf',
+      } as any
+    ],
     entries: [
       {
         id: '1',
         date: '2026-06-01',
         totalEmissions: 1000,
-        ecoGrade: 'A' as any,
         transportEmissions: 300,
         dietEmissions: 400,
         energyEmissions: 300,
-        recommendations: [
-          {
-            id: 'r1',
-            title: 'Plant-based diet',
-            description: 'Eat more plants',
-            category: RecommendationCategory.Diet,
-            potentialSavings: 200,
-            difficulty: 'Medium',
-            timeToImplement: 'Ongoing',
-            completed: false,
-          }
-        ],
-      }
+      } as unknown as any
     ],
     goals: [],
     activityLog: [],
     isLoading: false,
   };
+
 
   const mockStateEmpty: CarbonState = {
     profile: baseProfile,

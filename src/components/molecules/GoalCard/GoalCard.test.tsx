@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import GoalCard from './GoalCard';
-import { RecommendationCategory } from '../../../types';
 
 describe('GoalCard', () => {
   const mockGoal = {
