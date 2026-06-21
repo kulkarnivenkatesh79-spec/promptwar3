@@ -8,7 +8,7 @@ import path from 'path';
  * @see https://vite.dev/config/
  */
 export default defineConfig({
-  base: '/promptwar3/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
