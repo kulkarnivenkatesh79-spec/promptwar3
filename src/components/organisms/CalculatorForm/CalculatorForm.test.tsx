@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import CalculatorForm from './CalculatorForm';
 import { CarbonProvider } from '../../../context/CarbonContext';

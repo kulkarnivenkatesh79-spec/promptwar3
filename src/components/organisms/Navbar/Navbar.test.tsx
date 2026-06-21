@@ -75,7 +75,7 @@ describe('Navbar Component', () => {
     expect(screen.getByLabelText('Mobile Navigation')).toBeDefined();
     
     // Click a link inside mobile nav
-    const calcLink = screen.getAllByText('Calculator')[1]; // 2nd one is mobile
+    const calcLink = screen.getAllByText('Calculator')[1]!; // 2nd one is mobile
     fireEvent.click(calcLink);
     
     // Should close menu

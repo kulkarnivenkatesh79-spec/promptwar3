@@ -416,12 +416,12 @@ describe('generateId', () => {
   });
 
   it('uses crypto fallback when randomUUID is unavailable', () => {
-    const originalCrypto = global.crypto;
+    const originalCrypto = globalThis.crypto;
     // @ts-ignore
-    delete global.crypto;
+    delete globalThis.crypto;
     const id = generateId();
     expect(id).toBeTruthy();
     expect(id).toMatch(/^[a-z0-9]+-[a-z0-9]+$/);
-    global.crypto = originalCrypto;
+    globalThis.crypto = originalCrypto;
   });
 });
