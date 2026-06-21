@@ -49,8 +49,8 @@ describe('ThemeContext', () => {
     
     act(() => {
       // Simulate system dark mode enabled
-      const callback = addEventListenerMock.mock.calls[0][1];
-      callback({ matches: true });
+      const callback = addEventListenerMock.mock.calls[0]?.[1] as ((e: any) => void) | undefined;
+      if (callback) callback({ matches: true });
     });
     
     expect(result.current.theme).toBe('dark');

@@ -9,7 +9,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Dashboard from './Dashboard';
 import { CarbonProvider, useCarbonContext } from '../../context/CarbonContext';
 import { BrowserRouter } from 'react-router-dom';
-import { CarbonActionType } from '../../types';
+import { CarbonActionType, type CarbonEntry } from '../../types';
 import { useEffect } from 'react';
 
 // Mock recharts to avoid rendering complex SVGs in tests
@@ -162,6 +162,7 @@ describe('Dashboard Component', () => {
           type: CarbonActionType.LoadState, 
           payload: {
             profile: { name: 'Test User', region: 'global', onboarded: true, joinDate: '2026-01-01' },
+            currentEntry: null,
             entries: [],
             recommendations: [],
             goals: [],

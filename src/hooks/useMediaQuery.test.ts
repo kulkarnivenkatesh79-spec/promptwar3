@@ -55,9 +55,9 @@ describe('useMediaQuery', () => {
     expect(result.current).toBe(false);
     
     // Simulate event
-    const callback = addEventListenerMock.mock.calls[0][1];
+    const callback = addEventListenerMock.mock.calls[0]?.[1] as ((e: any) => void) | undefined;
     act(() => {
-      callback({ matches: true } as MediaQueryListEvent);
+      if (callback) callback({ matches: true } as MediaQueryListEvent);
     });
     
     expect(result.current).toBe(true);
