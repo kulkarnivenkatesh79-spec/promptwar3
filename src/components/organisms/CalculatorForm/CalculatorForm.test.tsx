@@ -37,3 +37,23 @@ describe('CalculatorForm', () => {
 
   });
 });
+
+  it('handles rapid multi-clicks safely', async () => {
+    render(
+      <BrowserRouter>
+        <CarbonProvider>
+          <CalculatorForm />
+        </CarbonProvider>
+      </BrowserRouter>
+    );
+
+    const continueBtn = screen.getByText('Continue');
+    // Rapid clicks
+    fireEvent.click(continueBtn);
+    fireEvent.click(continueBtn);
+    fireEvent.click(continueBtn);
+    fireEvent.click(continueBtn);
+
+    // Should progress to the end and not crash
+    expect(screen.getByText('Save Results')).toBeDefined();
+  });

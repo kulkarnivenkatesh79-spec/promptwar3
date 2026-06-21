@@ -334,3 +334,24 @@ describe('validateEnergyUsage', () => {
     })).toBe(false);
   });
 });
+describe('Extreme Edge Cases', () => {
+  it('handles massive integer inputs for numeric sanitization', () => {
+    expect(sanitizeNumber(Number.MAX_SAFE_INTEGER, 0, 100, 0)).toBe(100);
+    expect(sanitizeNumber(Number.MAX_VALUE, 0, 100, 0)).toBe(100);
+  });
+
+  it('handles extreme negative inputs', () => {
+    expect(sanitizeNumber(-Number.MAX_SAFE_INTEGER, 0, 100, 0)).toBe(0);
+    expect(sanitizeNumber(-Number.MAX_VALUE, 0, 100, 0)).toBe(0);
+  });
+
+  it('handles extremely precise floating point boundaries', () => {
+    expect(sanitizeNumber(100.00000000000001, 0, 100, 0)).toBe(100);
+    expect(sanitizeNumber(-0.00000000000001, 0, 100, 0)).toBe(0);
+  });
+
+  it('handles empty and whitespace edge cases safely in strings', () => {
+    expect(sanitizeString(' \n\t ')).toBe('');
+    expect(sanitizeString('\0')).toBe('\0');
+  });
+});

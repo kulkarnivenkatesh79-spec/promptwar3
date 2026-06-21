@@ -44,7 +44,7 @@ describe('Dashboard Component', () => {
     // CarbonProvider generates sample data, so the main dashboard should render
     expect(screen.getByText('Track Your Footprint Trend')).toBeDefined();
     expect(screen.getByText('Update Footprint')).toBeDefined();
-    expect(screen.getByText('Understand Equivalents')).toBeDefined();
+    expect(screen.getByText('Pillar 1: Understand')).toBeDefined();
   });
 
   it('opens and closes the CarbonInfoModal', () => {
@@ -73,7 +73,7 @@ describe('Dashboard Component', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
 
     // Click "Understand Equivalents"
-    const understandBtn = screen.getByText('Understand Equivalents');
+    const understandBtn = screen.getByText('Pillar 1: Understand');
     fireEvent.click(understandBtn);
 
     // Modal should open
